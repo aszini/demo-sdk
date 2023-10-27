@@ -19,3 +19,4 @@ dependencyResolutionManagement {
 rootProject.name = "demo-sdk"
 include(":app")
 include(":core")
+include(":mediation")

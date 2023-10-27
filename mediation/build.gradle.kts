@@ -1,5 +1,3 @@
-import org.gradle.internal.impldep.org.eclipse.jgit.lib.InflaterCache.release
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -7,8 +5,8 @@ plugins {
 }
 
 android {
-    namespace = "com.example.demo.core"
-    compileSdk = 34
+    namespace = "com.example.demo.mediation"
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 21
@@ -16,15 +14,23 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
-
     publishing {
-        singleVariant ("release") {
+        multipleVariants ("release") {
             withSourcesJar()
             withJavadocJar()
         }
     }
 
     buildTypes {
+
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -34,11 +40,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = "1.8"
     }
 }
 
@@ -53,18 +59,21 @@ dependencies {
 }
 
 
-//val sourcesJar by tasks.registering(Jar::class) {
-//    archiveClassifier.set("sources")
-//    from(android.sourceSets.getByName("main").java.srcDirs)
-//}
-
 afterEvaluate {
     publishing {
         publications {
+            val debug by publications.registering(MavenPublication::class) {
+                from(components["debug"])
+//                artifact(sourcesJar.get())
+                artifactId = "mediation"
+                groupId = "com.github.aszini"
+                version = "1.5"
+            }
+
             val release by publications.registering(MavenPublication::class) {
                 from(components["release"])
 //                artifact(sourcesJar.get())
-                artifactId = "core"
+                artifactId = "mediation"
                 groupId = "com.github.aszini"
                 version = "1.5"
             }
@@ -80,22 +89,4 @@ afterEvaluate {
 
     }
 }
-//
-//afterEvaluate {
-//    publishing {
-//        publications {
-//            val release by publications.registering(MavenPublication::class) {
-//                // added this line here
-//
-//
-//                from(components["release"])
-////                artifact(sourcesJar.get())
-////                artifactId = "demo-sdk"
-////                groupId = "com.github.aszini"
-////                version = "1.0"
-//                // Adds javadocs and sources as separate jars.
-//                artifact(androidSourcesJar)
-//            }
-//        }
-//    }
-//}
+
