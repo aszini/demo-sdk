@@ -48,5 +48,11 @@ dependencies {
 //    implementation(project(mapOf("path" to ":core")))
 //    implementation(project(mapOf("path" to ":mediation")))
 
-    implementation("com.github.aszini:demo-sdk:1.4")
+//    implementation("com.github.aszini:demo-sdk:1.4")
+    
+    implementation("com.github.aszini.demo-sdk:core:1.6")
+    implementation("com.github.aszini.demo-sdk:mediation:1.6")
+
+
+
 }

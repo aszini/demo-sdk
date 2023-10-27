@@ -65,17 +65,17 @@ afterEvaluate {
             val debug by publications.registering(MavenPublication::class) {
                 from(components["debug"])
 //                artifact(sourcesJar.get())
-                artifactId = "mediation"
-                groupId = "com.github.aszini"
-                version = "1.5"
+//                artifactId = "mediation"
+//                groupId = "com.github.aszini"
+//                version = "1.5"
             }
 
             val release by publications.registering(MavenPublication::class) {
                 from(components["release"])
 //                artifact(sourcesJar.get())
-                artifactId = "mediation"
-                groupId = "com.github.aszini"
-                version = "1.5"
+//                artifactId = "mediation"
+//                groupId = "com.github.aszini"
+//                version = "1.5"
             }
         }
 

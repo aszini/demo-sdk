@@ -64,9 +64,9 @@ afterEvaluate {
             val release by publications.registering(MavenPublication::class) {
                 from(components["release"])
 //                artifact(sourcesJar.get())
-                artifactId = "core"
-                groupId = "com.github.aszini"
-                version = "1.5"
+//                artifactId = "core"
+//                groupId = "com.github.aszini"
+//                version = "1.5"
             }
         }
 
