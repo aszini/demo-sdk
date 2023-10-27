@@ -46,17 +46,17 @@ dependencies {
 }
 
 
-//val sourcesJar by tasks.registering(Jar::class) {
-//    archiveClassifier.set("sources")
-//    from(android.sourceSets.getByName("main").java.srcDirs)
-//}
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(android.sourceSets.getByName("main").java.srcDirs)
+}
 
 afterEvaluate {
     publishing {
         publications {
             val release by publications.registering(MavenPublication::class) {
                 from(components["release"])
-//                artifact(sourcesJar.get())
+                artifact(sourcesJar.get())
                 artifactId = "demo-sdk"
                 groupId = "com.github.aszini"
                 version = "1.0"  //github release of com.github.danbrough.jitpackdemo
